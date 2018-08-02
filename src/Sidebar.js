@@ -1,21 +1,14 @@
 import React, { Component } from 'react'
 import { width } from 'window-size';
+import UserInfo from './UserInfo'
 
 class Sidebar extends Component {
   render() {
     return (
       <div className="Sidebar" style = {styles.sidebar}>
 
-       <div className = "UserInfo" style = {styles.children}>
-            <div className = "Avatar"></div>
-                <div className = "user">
-                {this.props.user.displayName}
-                </div>
-                <a href="#">
-          <i className="fas fa-sign-out-alt"></i>
-               </a>
-         </div>
-         
+       <UserInfo user = {this.props.user}/>
+
          <h1 style={styles.h1}>XTBC 18</h1>
 
          <nav

@@ -4,10 +4,22 @@ import './App.css'
 
 
 class App extends Component {
+  constructor(){
+    super()
+
+    this.state = {
+  user:  {
+  uid: 'sdfs34843560',
+  displayName: 'Stefany',
+  email: 'stefany@singing.org',
+      }
+    }
+  }
+  
   render() {
     return (
       <div className="App">
-       <Main />
+       <Main user = {this.state.user}/>
       </div>
     )
   }

@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
+import React from 'react'
 
 import Sidebar from './Sidebar'
 import Chat from './Chat'
 
-class Main extends Component {
+class Main extends React.Component {
   render() {
     return (
       <div className="Main" style = {styles}>

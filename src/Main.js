@@ -19,5 +19,5 @@ export default Main
 const styles = {
     display: 'flex',
     alignItems: 'stretch',
-    height: '100vh',
+     height: '100vh',
 }

@@ -22,6 +22,7 @@ const styles = {
     padding: '0.5rem 1rem',
     display: 'flex',
     alignItems: 'center',
+  
   },
 
   h2: {

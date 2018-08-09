@@ -9,7 +9,7 @@ const UserInfo = (props) => {
                 <div className = "user" style = {styles.user}>
                 {props.user.displayName}
                 </div>
-                <SignOutButton />
+                <SignOutButton signOut={props.signOut}/>
          </div>
     )
 }

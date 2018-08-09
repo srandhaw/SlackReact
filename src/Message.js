@@ -7,7 +7,6 @@ const Message = (props) =>{
         return(
             <div className = "Message" style={styles.message}>
 
- {/* {props.message.user.displayName}: {props.message.content}  */}
  <Avatar user = {props.message.user}/>
  <div className = "details" style={styles.details}>
  <Metadata message = {props.message}/>

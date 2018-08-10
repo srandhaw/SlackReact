@@ -12,11 +12,7 @@ import { auth, googleProvider } from './base'
         .signInWithPopup(googleProvider)
         .then(result => {
           const user  = result.user
-          this.props.handleAuth({
-            displayName: user.displayName,
-            email: user.email,
-            uid: user.uid,
-          })
+          this.props.handleAuth(user)
         })
     }
     
@@ -26,6 +22,7 @@ const user = {
     uid: `${this.state.email}-sdkfjhwr987`,
     email: this.state.email,
     displayName: this.state.email,
+    
 }
 this.props.handleAuth(user)
 this.setState({email: ""})

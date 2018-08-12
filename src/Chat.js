@@ -10,10 +10,7 @@ class Chat extends Component {
     super()
 
     this.state = {
-      messages: [
-        
-  
-    ]
+      messages: [],
     }
     
   }
@@ -28,6 +25,8 @@ class Chat extends Component {
       }
     )
   }
+
+  
    componentWillUnmount() {
     base.removeBinding(this.messagesRef)
   }
@@ -36,7 +35,9 @@ class Chat extends Component {
   addMessage = (content) => {
     const messages = [...this.state.messages]
 
-    
+    const user  = {
+
+    }
 
     messages.push({
       id: Date.now(),
@@ -44,7 +45,9 @@ class Chat extends Component {
       content,
     })
 
-    this.setState({ messages: messages })
+    console.log(messages)
+
+    this.setState({ messages })
   }
 
   render() {

@@ -10,28 +10,25 @@ import { auth, googleProvider, githubProvider } from './base'
      authenticate = (provider) => {
       auth
         .signInWithPopup(provider)
-        .then(result => {
-          const user  = result.user
-          this.props.handleAuth(user)
-        })
+        
     }
     
-     handleSubmit = (ev) =>{
-ev.preventDefault()
-const user = {
-    uid: `${this.state.email}-sdkfjhwr987`,
-    email: this.state.email,
-    displayName: this.state.email,
+//      handleSubmit = (ev) =>{
+// ev.preventDefault()
+// const user = {
+//     uid: `${this.state.email}-sdkfjhwr987`,
+//     email: this.state.email,
+//     displayName: this.state.email,
     
-}
-this.props.handleAuth(user)
-this.setState({email: ""})
-     }
+// }
+// this.props.handleAuth(user)
+// this.setState({email: ""})
+//      }
 
-     handleChange = (ev) =>{
-ev.preventDefault()
-this.setState({email: ev.target.value})
-     }
+//      handleChange = (ev) =>{
+// ev.preventDefault()
+// this.setState({email: ev.target.value})
+//      }
 
 
      render() {

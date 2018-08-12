@@ -1,7 +1,9 @@
 import React from 'react'
 import { StyleSheet, css } from 'aphrodite'
+import Room from './Room'
 
 const RoomList = (props) =>{
+
     return(
         <nav
         className='RoomList
@@ -14,11 +16,11 @@ const RoomList = (props) =>{
         {
           Object.keys(props.rooms).map(
             roomName => (
-              <li className={css(styles.item)} key={roomName}>
-                <a href="/" className={css(styles.link)}>
-                  {roomName}
-                </a>
-              </li>
+              <Room
+                key={roomName}
+                roomName={roomName}
+                setCurrentRoom = {props.setCurrentRoom}
+              />
             )
           )
         }

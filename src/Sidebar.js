@@ -12,7 +12,7 @@ class Sidebar extends Component {
 
          <h1 style={styles.h1}>XTBC 18</h1>
 
-        <RoomList rooms={this.props.rooms}/>
+        <RoomList rooms={this.props.rooms} setCurrentRoom = {this.props.setCurrentRoom}/>
 
 
       </div>

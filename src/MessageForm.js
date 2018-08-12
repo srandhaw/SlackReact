@@ -14,7 +14,6 @@ this.setState({content: ""})
 }
 
 handleChange = (ev) =>{
-    ev.preventDefault()
 this.setState({content: ev.target.value})
 }
 

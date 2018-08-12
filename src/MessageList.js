@@ -8,9 +8,9 @@ const MessageList = (props) => {
        
       <div style={styles.roomAnnouncement}>
         <h3 style={styles.h3}>
-          #general
+          #{props.room.name}
         </h3>
-        <p>This is the very beginning of the #general room.</p>
+        <p>This is the very beginning of the #{props.room.name} room.</p>
       </div>
     {
        props.messages.map(msg => (

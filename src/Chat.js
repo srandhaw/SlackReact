@@ -26,7 +26,7 @@ class Chat extends Component {
     )
   }
 
-  
+
    componentWillUnmount() {
     base.removeBinding(this.messagesRef)
   }
@@ -53,8 +53,8 @@ class Chat extends Component {
   render() {
     return (
       <div className="Chat" style={styles}>
-        <ChatHeader />
-        <MessageList messages = {this.state.messages}/>
+        <ChatHeader room = {this.props.room}/>
+        <MessageList room = {this.props.room} messages = {this.state.messages}/>
         <MessageForm addMessage = {this.addMessage}/>
       </div>
     )

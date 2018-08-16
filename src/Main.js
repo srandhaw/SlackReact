@@ -17,6 +17,13 @@ class Main extends React.Component {
     },
   }
 
+  addRoom = (room) =>{
+const rooms = {...this.state.rooms}
+
+rooms[room.name] = room
+this.setState({rooms})
+  }
+
   componentDidMount(){
     this.roomsRef = base.syncState(
       'rooms',

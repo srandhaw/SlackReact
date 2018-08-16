@@ -53,6 +53,12 @@ this.setState({ room })
               />
             </p>
             <div>
+            <button
+                type="button"
+                onClick={this.props.hideRoomForm}
+              >
+                Cancel
+              </button>
               <button
                 type="submit"
               >

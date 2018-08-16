@@ -69,7 +69,7 @@ this.setState({room})
     return (
       <div className="Main" style = {styles}>
       
-        <Sidebar user = {this.props.user}  signOut={this.props.signOut} rooms={this.state.rooms} setCurrentRoom={this.setCurrentRoom}/>
+        <Sidebar user = {this.props.user}  signOut={this.props.signOut} rooms={this.state.rooms} setCurrentRoom={this.setCurrentRoom} showRoomForm={this.showRoomForm}/>
         <Chat user = {this.props.user} room={this.state.room}/>
       </div>
     )

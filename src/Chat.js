@@ -54,9 +54,10 @@ class Chat extends Component {
     }
 
     messages.push({
-      id: Date.now(),
+      id: `${user.uid}-${Date.now()}`,
        user: this.props.user,
       content,
+      createdAt: Date.now(),
     })
 
     console.log(messages)

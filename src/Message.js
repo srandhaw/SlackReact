@@ -27,6 +27,7 @@ const styles = {
     marginTop: '1rem',
     padding: '0 1rem',
         },
+        
         details: {
                 flex: 1,
                 paddingLeft: '0.5rem',

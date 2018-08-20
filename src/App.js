@@ -3,7 +3,7 @@ import Main from './Main'
 import './App.css'
 import SignIn from './SignIn'
 import { auth } from './base';
-
+import { Route, Switch, Redirect } from 'react-router-dom'
 
 class App extends Component {
   constructor(){
@@ -55,14 +55,34 @@ localStorage.setItem('user', JSON.stringify(user))
   render() {
     return (
       <div className="App">
-      {
-          this.signedIn()
-            ? <Main
-                user={this.state.user}
-                signOut={this.signOut}
-              />
-            : <SignIn  />
-        }
+       <Switch>
+          <Route
+            path="/sign-in"
+            render={() => (
+              this.signedIn()
+                ? <Redirect to="/chat" />
+                : <SignIn />
+            )}
+          />
+          <Route
+            path="/chat"
+            render={() => (
+              this.signedIn()
+                ? <Main
+                    user={this.state.user}
+                    signOut={this.signOut}
+                  />
+                : <Redirect to="/sign-in" />
+            )}
+          />
+          <Route
+            render={() => (
+              this.signedIn()
+                ? <Redirect to="/chat" />
+                : <Redirect to="/sign-in" />
+            )}
+          />
+        </Switch>
       </div>
     )
   }

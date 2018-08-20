@@ -9,8 +9,8 @@ class Main extends React.Component {
 
   state = {
     room: {
-      name: 's3afternoon',
-      description: 'Ask questions and share code',
+      name: 'general',
+      description: 'Chat about whatever',
     },
 
     rooms: {

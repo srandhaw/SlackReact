@@ -16,27 +16,28 @@ class App extends Component {
     }
   }
 
-  componentDidMount(){
+  componentDidMount() {
     auth.onAuthStateChanged(
-      user=>{
-        if(user){
-this.handleAuth({
-  uid: user.uid,
-  displayName: user.displayName,
-  email: user.email,
-  photoURL: user.photoURL
-})
-        }
-        else{
+      user => {
+        if (user) {
+          // User is signed in.
+          this.handleAuth(user)
+        } else {
+          // No user is signed in.
           this.handleUnauth()
         }
-      }
-    )
+    })
   }
 
-  handleAuth = (user) =>{
-this.setState({user})
-localStorage.setItem('user', JSON.stringify(user))
+  handleAuth = (oAuthUser) => {
+    const user = {
+      uid: oAuthUser.uid,
+      displayName: oAuthUser.displayName,
+      email: oAuthUser.email,
+      photoUrl: oAuthUser.photoURL,
+    }
+    this.setState({ user })
+    localStorage.setItem('user', JSON.stringify(user))
   }
 
   signedIn = () =>{
@@ -64,17 +65,32 @@ localStorage.setItem('user', JSON.stringify(user))
                 : <SignIn />
             )}
           />
+          
           <Route
-            path="/chat"
-            render={() => (
+            exact path="/chat"
+            render={(navProps) => (
               this.signedIn()
                 ? <Main
                     user={this.state.user}
                     signOut={this.signOut}
+                    {...navProps}
                   />
                 : <Redirect to="/sign-in" />
             )}
           />
+          <Route
+            exact path="/chat/rooms/:roomName"
+            render={(navProps) => (
+              this.signedIn()
+                ? <Main
+                    user={this.state.user}
+                    signOut={this.signOut}
+                    {...navProps}
+                  />
+                : <Redirect to="/sign-in" />
+            )}
+          />
+          
           <Route
             render={() => (
               this.signedIn()

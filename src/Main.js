@@ -1,85 +1,126 @@
-import React from 'react'
+import React, { Component, Fragment } from 'react'
+import { Route, Switch, Redirect } from 'react-router-dom'
 
 import Sidebar from './Sidebar'
 import Chat from './Chat'
-import base from './base'
 import RoomForm from './RoomForm'
+import base from './base'
 
-class Main extends React.Component {
-
+class Main extends Component {
   state = {
-    room: {
-      name: 'general',
-      description: 'Chat about whatever',
-    },
-
-    rooms: {
-    
-    },
-
-    showRoomForm: false,
+    room: {},
+    rooms: {},
   }
 
-  showRoomForm = () => {
-    this.setState({ showRoomForm: true })
-  }
-   hideRoomForm = () => {
-    this.setState({ showRoomForm: false })
-  }
-
-  addRoom = (room) =>{
-const rooms = {...this.state.rooms}
-
-rooms[room.name] = room
-this.setState({rooms})
-  }
-
-  componentDidMount(){
+  componentDidMount() {
     this.roomsRef = base.syncState(
       'rooms',
       {
-          context: this,
-          state: 'rooms',
-          defaultValue: {
-            general: {
-              name: 'general',
-              description: 'Chat about whatever',
-            },
-          }
-        
-
-    })
+        context: this,
+        state: 'rooms',
+        defaultValue: {
+          general: {
+            name: 'general',
+            description: 'Chat about whatever',
+          },
+        },
+        then: this.setRoomFromRoute,
+      }
+    )
   }
 
-  componentWillUnmount(){
+  componentDidUpdate(prevProps) {
+    const { roomName } = this.props.match.params
+    if (prevProps.match.params.roomName !== roomName) {
+      this.setRoomFromRoute()
+    }
+  }
+
+  componentWillUnmount() {
     base.removeBinding(this.roomsRef)
   }
 
-  setCurrentRoom = (roomName) =>{
-const room = this.state.rooms[roomName]
-this.setState({room})
+  setRoomFromRoute = () => {
+    const { roomName } = this.props.match.params
+    if (roomName) {
+      this.setCurrentRoom(roomName)
+    }
+  }
+
+  addRoom = room => {
+    const rooms = {...this.state.rooms}
+    rooms[room.name] = room
+
+    this.setState({ rooms })
+  }
+
+  setCurrentRoom = roomName => {
+    const room = this.state.rooms[roomName]
+
+    if (room) {
+      this.setState({ room })
+    } else {
+      this.loadValidRoom()
+    }
+  }
+
+  loadValidRoom = () => {
+    const roomNames = Object.keys(this.state.rooms)
+    if (roomNames.length > 0) {
+      const roomName = roomNames[0]
+      this.props.history.push(`/chat/rooms/${roomName}`)
+    }
+  }
+
+  roomIsLoaded() {
+    return this.state.room.name
   }
 
   render() {
-
-    if (this.state.showRoomForm) {
-      return <RoomForm addRoom={this.addRoom} hideRoomForm={this.hideRoomForm}/>
-    }
-
     return (
-      <div className="Main" style = {styles}>
-      
-        <Sidebar user = {this.props.user}  signOut={this.props.signOut} rooms={this.state.rooms} setCurrentRoom={this.setCurrentRoom} showRoomForm={this.showRoomForm}/>
-        <Chat user = {this.props.user} room={this.state.room}/>
+      <div className="Main" style={styles}>
+        <Switch>
+          <Route
+            path="/chat/new-room"
+            render={(navProps) => (
+              <RoomForm
+                addRoom={this.addRoom}
+                {...navProps}
+              />
+            )}
+          />
+          <Route
+            path="/chat/rooms/:roomName"
+            render={() => (
+                this.roomIsLoaded()
+                  ? <Fragment>
+                      <Sidebar
+                        user={this.props.user}
+                        signOut={this.props.signOut}
+                        rooms={this.state.rooms}
+                      />
+                      <Chat
+                        user={this.props.user}
+                        room={this.state.room}
+                      />
+                    </Fragment>
+                  : <div>Loading...</div>
+            )}
+          />
+          <Route render={() => (
+            <Redirect to="/chat/rooms/general" />
+          )} />
+        </Switch>
+
       </div>
     )
   }
 }
 
-export default Main
-
 const styles = {
-    display: 'flex',
-    alignItems: 'stretch',
-     height: '100vh',
+  display: 'flex',
+  alignItems: 'stretch',
+  height: '100vh',
 }
+
+export default Main

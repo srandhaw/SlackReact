@@ -1,18 +1,18 @@
 import React from 'react'
 import { StyleSheet, css } from 'aphrodite'
+import { NavLink } from 'react-router-dom'
 
 const Room = (props) => {
 
-    const handleClick = (ev) =>{
-ev.preventDefault()
-props.setCurrentRoom(props.roomName)
-    }
+    
 
     return (
       <li className={css(styles.item)} key={props.roomName} >
-        <a href="/" className={css(styles.link)} onClick = {handleClick}>
+        <NavLink
+        to={`/chat/rooms/${props.roomName}`}
+        className={css(styles.link)}>
           {props.roomName}
-        </a>
+        </NavLink>
       </li>
     )
   }

@@ -20,6 +20,7 @@ this.setState({ room })
     handleSubmit = ev => {
         ev.preventDefault()
         this.props.addRoom(this.state.room)
+        this.props.history.goBack()
       }
 
     render(){
@@ -60,7 +61,7 @@ this.setState({ room })
             <div className={css(styles.buttonContainer)}>
             <button
                 type="button"
-                onClick={this.props.hideRoomForm}
+                onClick={this.props.history.goBack}
                 className={css(styles.button, styles.cancel)}
               >
                 Cancel

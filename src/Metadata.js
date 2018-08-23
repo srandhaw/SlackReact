@@ -5,7 +5,7 @@ const Metadata = (props) =>{
     return(
 <div className = "Metadata" style = {styles.metadata}>
 <div style = {styles.user}>
-{props.message.user.displayName}
+{props.message.user.displayName|| props.message.user.email}
     </div>
 
     <div style = {styles.time}>

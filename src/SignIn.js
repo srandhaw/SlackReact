@@ -4,7 +4,10 @@ import { auth, googleProvider, githubProvider } from './base'
 
  class SignIn extends Component {
      state = {
-         email: ""
+      user: {
+        email: '',
+        password: '',
+      }
      }
 
      authenticate = (provider) => {
@@ -13,22 +16,20 @@ import { auth, googleProvider, githubProvider } from './base'
         
     }
     
-//      handleSubmit = (ev) =>{
-// ev.preventDefault()
-// const user = {
-//     uid: `${this.state.email}-sdkfjhwr987`,
-//     email: this.state.email,
-//     displayName: this.state.email,
-    
-// }
-// this.props.handleAuth(user)
-// this.setState({email: ""})
-//      }
+     handleSubmit = (ev) =>{
+ev.preventDefault()
+auth.signInWithEmailAndPassword(
+  this.state.user.email,
+  this.state.user.password
+)
 
-//      handleChange = (ev) =>{
-// ev.preventDefault()
-// this.setState({email: ev.target.value})
-//      }
+     }
+
+     handleChange = (ev) =>{
+       const user = {...this.state.user}
+       user[ev.target.name] = ev.target.value
+this.setState({user})
+     }
 
 
      render() {
@@ -46,7 +47,7 @@ import { auth, googleProvider, githubProvider } from './base'
                 onSubmit={this.handleSubmit}
               >
                   <h2>Sign In</h2>                     
-                {/* <label
+                <label
                   htmlFor="email"
                   className={css(styles.label)}
                 >
@@ -56,16 +57,33 @@ import { auth, googleProvider, githubProvider } from './base'
                   autoFocus
                   type="email"
                   name="email"
+                  required
                   className={css(styles.input)}
-                  value={this.state.email}
+                  value={this.state.user.email}
                   onChange={this.handleChange}
                 />
+
+                <label
+              htmlFor="password"
+              className={css(styles.label)}
+            >
+             Password
+            </label>
+            <input
+              required
+              type="password"
+              name="password"
+              className={css(styles.input)}
+              value={this.state.user.password}
+              onChange={this.handleChange}
+            />
+
                 <button
                   type="submit"
                   className={css(styles.button)}
                 >
                   Sign In
-                </button> */}
+                </button>
 
                 <button
               type="button"

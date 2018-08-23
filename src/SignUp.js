@@ -7,6 +7,7 @@ import { StyleSheet, css } from 'aphrodite'
     user: {
       email: '',
       password: '',
+      passwordConfirmation: '',
     },
     errorMessage: null,
   }
@@ -17,10 +18,19 @@ import { StyleSheet, css } from 'aphrodite'
   }
    handleSubmit = (ev) => {
     ev.preventDefault()
-    auth.createUserWithEmailAndPassword(
-      this.state.user.email,
-      this.state.user.password
-    ).catch(error => this.setState({ errorMessage: error.message }))
+    if (this.passwordsMatch()) {
+        auth.createUserWithEmailAndPassword(
+          this.state.user.email,
+          this.state.user.password
+        ).catch(error => this.setState({ errorMessage: error.message }))
+      }
+  }
+  passwordsMatch = () => {
+    if (this.state.user.password !== this.state.user.passwordConfirmation) {
+      this.setState({ errorMessage: 'The passwords you entered do not match.' })
+      return false
+    }
+    return true
   }
    render() {
     return (
@@ -66,6 +76,22 @@ import { StyleSheet, css } from 'aphrodite'
               value={this.state.user.password}
               onChange={this.handleChange}
             />
+
+            <label
+              htmlFor="passwordConfirmation"
+              className={css(styles.label)}
+            >
+              Re-type Password
+            </label>
+            <input
+              required
+              type="password"
+              name="passwordConfirmation"
+              className={css(styles.input)}
+              value={this.state.user.passwordConfirmation}
+              onChange={this.handleChange}
+            />
+
              <button
               type="submit"
               className={css(styles.button)}

@@ -32,5 +32,7 @@ alignItems: 'baseline'
         color: '#999',
         fontSize: '0.8rem',
       },
+
+      
 }
 

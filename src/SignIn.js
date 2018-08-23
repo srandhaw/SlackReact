@@ -7,7 +7,8 @@ import { auth, googleProvider, githubProvider } from './base'
       user: {
         email: '',
         password: '',
-      }
+      },
+      errorMessage: null,
      }
 
      authenticate = (provider) => {
@@ -21,7 +22,7 @@ ev.preventDefault()
 auth.signInWithEmailAndPassword(
   this.state.user.email,
   this.state.user.password
-)
+).catch(error => this.setState({ errorMessage: error.message }))
 
      }
 
@@ -84,6 +85,11 @@ this.setState({user})
                 >
                   Sign In
                 </button>
+
+                 <p className={css(styles.error)}>
+              {this.state.errorMessage}
+            </p>
+             OR
 
                 <button
               type="button"
@@ -199,5 +205,12 @@ this.setState({user})
     brandIcon: {
       marginRight: '1rem',
     },
+    buttonGroup: {
+      marginTop: '1rem',
+    },
+     error: {
+      color: '#ff3344',
+      height: '1.2rem',
+    }
 
  })

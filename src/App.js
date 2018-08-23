@@ -4,6 +4,7 @@ import './App.css'
 import SignIn from './SignIn'
 import { auth } from './base';
 import { Route, Switch, Redirect } from 'react-router-dom'
+import SignUp from './SignUp'
 
 class App extends Component {
   constructor(){
@@ -57,6 +58,14 @@ class App extends Component {
     return (
       <div className="App">
        <Switch>
+       <Route
+            path="/sign-up"
+            render={() => (
+              this.signedIn()
+                ? <Redirect to="/chat" />
+                : <SignUp />
+            )}
+          />
           <Route
             path="/sign-in"
             render={() => (

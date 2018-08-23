@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { StyleSheet, css } from 'aphrodite'
+import { Link } from 'react-router-dom'
 import { auth, googleProvider, githubProvider } from './base'
 
  class SignIn extends Component {
@@ -89,6 +90,11 @@ this.setState({user})
                  <p className={css(styles.error)}>
               {this.state.errorMessage}
             </p>
+
+             <p>
+              Not a member yet? <Link to="/sign-up">Sign up</Link>!
+            </p>
+            
              OR
 
                 <button
